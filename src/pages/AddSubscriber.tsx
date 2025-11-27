@@ -22,7 +22,7 @@ import {
 import { useAccounts } from '@/contexts/AccountContext';
 import { toast } from 'sonner';
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3007';
+const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3008';
 
 export const AddSubscriber: React.FC = () => {
   const { currentAccount } = useAccounts();
@@ -30,7 +30,8 @@ export const AddSubscriber: React.FC = () => {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [content, setContent] = useState('');
-  const [fromAddress, setFromAddress] = useState(''); // New state for From Address
+  const [fromAddress, setFromAddress] = useState('');
+  const [fromName, setFromName] = useState(''); // NEW STATE
   const [isSending, setIsSending] = useState(false);
   const [lastResponse, setLastResponse] = useState('');
 
@@ -101,6 +102,12 @@ export const AddSubscriber: React.FC = () => {
     setIsSending(true);
     const toastId = toast.loading("Sending email...");
 
+    // Construct correct "From" string
+    let finalFrom = fromAddress;
+    if (fromName.trim() && fromAddress.trim()) {
+      finalFrom = `${fromName.trim()} <${fromAddress.trim()}>`;
+    }
+
     try {
       const response = await fetch(`${apiUrl}/api/send-email`, {
         method: 'POST',
@@ -110,7 +117,7 @@ export const AddSubscriber: React.FC = () => {
           to,
           subject,
           content,
-          from: fromAddress // Send the custom from address if provided
+          from: finalFrom // Send constructed string
         }),
       });
 
@@ -129,7 +136,7 @@ export const AddSubscriber: React.FC = () => {
       setTo('');
       setSubject('');
       setContent('');
-      // We don't clear fromAddress, keep it for next email
+      // We don't clear fromAddress/fromName, keep it for next email
 
     } catch (error: any) {
       toast.error("Send Failed", { 
@@ -151,7 +158,7 @@ export const AddSubscriber: React.FC = () => {
           <CardContent className="p-6 text-center">
             <Mail className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
             <h2 className="text-lg font-semibold mb-2">No Account Selected</h2>
-            <p className="text-muted-foreground">Select a Plunk account to start sending emails.</p>
+            <p className="text-muted-foreground">Select an account to start sending emails.</p>
           </CardContent>
         </Card>
       </div>
@@ -166,7 +173,7 @@ export const AddSubscriber: React.FC = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight">Send Email</h1>
-          <p className="text-muted-foreground">Send transactional emails via Plunk</p>
+          <p className="text-muted-foreground">Send transactional emails via Emailit</p>
         </div>
       </div>
 
@@ -179,8 +186,20 @@ export const AddSubscriber: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
+                <Label htmlFor="fromName" className="flex items-center gap-2">
+                <User className="w-4 h-4 text-muted-foreground" /> From Name
+                </Label>
+                <Input 
+                id="fromName" 
+                placeholder="My Company" 
+                value={fromName}
+                onChange={(e) => setFromName(e.target.value)}
+                />
+            </div>
+
+            <div className="space-y-2">
                 <Label htmlFor="from" className="flex items-center gap-2">
-                <User className="w-4 h-4 text-muted-foreground" /> From (Optional)
+                <Mail className="w-4 h-4 text-muted-foreground" /> From Email
                 </Label>
                 <Input 
                 id="from" 
@@ -188,10 +207,10 @@ export const AddSubscriber: React.FC = () => {
                 value={fromAddress}
                 onChange={(e) => setFromAddress(e.target.value)}
                 />
-                <p className="text-[10px] text-muted-foreground">Leave empty to use verified domain default.</p>
             </div>
+          </div>
 
-            <div className="space-y-2">
+          <div className="space-y-2">
                 <Label htmlFor="to" className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-muted-foreground" /> To
                 </Label>
@@ -201,7 +220,6 @@ export const AddSubscriber: React.FC = () => {
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
                 />
-            </div>
           </div>
 
           <div className="space-y-2">

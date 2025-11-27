@@ -1,3 +1,4 @@
+// src/App.tsx
 import { Router, Route, Switch } from 'wouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from "@/components/ui/toaster";
@@ -5,13 +6,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccountProvider } from '@/contexts/AccountContext';
 import { BulkJobProvider } from '@/contexts/BulkJobContext';
-import { TrackEventProvider } from '@/contexts/TrackEventContext'; // New Provider
+// REMOVED: import { TrackEventProvider } from '@/contexts/TrackEventContext'; 
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { Layout } from '@/components/layout/Layout';
 import { AddSubscriber } from '@/pages/AddSubscriber';
 import { BulkImport } from '@/pages/BulkImport';
 import { Analytics } from '@/pages/Analytics';
-import { TrackEvent } from '@/pages/TrackEvent'; // New Page
+// REMOVED: import { TrackEvent } from '@/pages/TrackEvent';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,14 +29,14 @@ const App = () => (
       <TooltipProvider>
         <AccountProvider>
           <BulkJobProvider>
-            <TrackEventProvider> {/* Wrap Router */}
+            {/* REMOVED TrackEventProvider Wrapper */}
               <Router>
                 <Layout>
                   <Switch>
                     <Route path="/" component={AddSubscriber} />
                     <Route path="/add-subscriber" component={AddSubscriber} />
                     <Route path="/bulk-import" component={BulkImport} />
-                    <Route path="/track-event" component={TrackEvent} /> {/* New Route */}
+                    {/* REMOVED TrackEvent Route */}
                     <Route path="/analytics" component={Analytics} />
                     <Route>
                       <div className="flex items-center justify-center h-64 animate-fade-in">
@@ -48,7 +49,6 @@ const App = () => (
                   </Switch>
                 </Layout>
               </Router>
-            </TrackEventProvider>
           </BulkJobProvider>
         </AccountProvider>
         <Toaster />

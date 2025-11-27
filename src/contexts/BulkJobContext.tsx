@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useRef, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3007';
+const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3008';
 
 export interface SendResult {
   id: number;
@@ -16,17 +16,18 @@ export interface JobState {
   subject: string;
   content: string;
   fromEmail?: string;
-  delay: number; // Added delay in seconds
+  fromName?: string; // NEW: Added fromName
+  delay: number;
   
   // Job Status
-  status: 'idle' | 'processing' | 'paused' | 'completed' | 'stopped' | 'waiting'; // Added waiting status
+  status: 'idle' | 'processing' | 'paused' | 'completed' | 'stopped' | 'waiting';
   progress: { current: number; total: number };
   results: SendResult[];
   
   // Stats
   stats: { success: number; fail: number };
   elapsedSeconds: number;
-  countdown: number; // Added for visual countdown
+  countdown: number;
 }
 
 interface BulkJobContextType {
@@ -52,7 +53,8 @@ const defaultJobState: JobState = {
   subject: '',
   content: '',
   fromEmail: '',
-  delay: 1, // Default 1 second
+  fromName: '', // NEW
+  delay: 1,
   status: 'idle',
   progress: { current: 0, total: 0 },
   results: [],
@@ -74,7 +76,6 @@ export const BulkJobProvider: React.FC<{ children: ReactNode }> = ({ children })
     }));
   };
 
-  // Global Timer for elapsed time
   useEffect(() => {
     const interval = setInterval(() => {
       setJobs(currentJobs => {
@@ -82,7 +83,6 @@ export const BulkJobProvider: React.FC<{ children: ReactNode }> = ({ children })
         let hasChanges = false;
 
         Object.keys(nextJobs).forEach(accId => {
-          // Only increment elapsed time if processing or waiting
           if (nextJobs[accId].status === 'processing' || nextJobs[accId].status === 'waiting') {
             nextJobs[accId] = {
               ...nextJobs[accId],
@@ -157,23 +157,18 @@ export const BulkJobProvider: React.FC<{ children: ReactNode }> = ({ children })
         break;
       }
 
-      // Pause Check
       while (ctrl?.isPaused) {
         if (ctrl?.isStopped) break;
         await new Promise(r => setTimeout(r, 500));
       }
       if (ctrl?.isStopped) break;
 
-      // --- DELAY LOGIC with Visual Countdown ---
-      // Only delay if it's not the very first item, OR if you want a delay before every item. 
-      // Usually, we delay *between* items. So i > 0.
       if (i > 0 && job.delay > 0) {
          let remaining = job.delay;
          updateJobData(accountId, { status: 'waiting', countdown: remaining });
          
          while (remaining > 0) {
             if (ctrl?.isStopped) break;
-            // Check pause inside wait loop too
             while (ctrl?.isPaused) {
                 if (ctrl?.isStopped) break;
                 await new Promise(r => setTimeout(r, 500));
@@ -191,9 +186,14 @@ export const BulkJobProvider: React.FC<{ children: ReactNode }> = ({ children })
         break;
       }
 
-      // Process Email
       const email = emails[i];
       const id = i + 1;
+
+      // Construct the "From" header string: "Name <email>"
+      let finalFrom = job.fromEmail;
+      if (job.fromName && job.fromEmail) {
+        finalFrom = `${job.fromName} <${job.fromEmail}>`;
+      }
 
       try {
         const response = await fetch(`${apiUrl}/api/send-email`, {
@@ -202,9 +202,9 @@ export const BulkJobProvider: React.FC<{ children: ReactNode }> = ({ children })
           body: JSON.stringify({
             accountId,
             to: email,
-            subject: getJob(accountId).subject, // Access refs/latest state if needed
+            subject: getJob(accountId).subject,
             content: getJob(accountId).content,
-            from: getJob(accountId).fromEmail
+            from: finalFrom // Send the combined string
           }),
         });
 

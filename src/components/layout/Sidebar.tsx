@@ -25,12 +25,6 @@ const navigationItems = [
     description: 'Bulk Send emails'
   },
   {
-    title: 'Track Event', // New Item
-    href: '/track-event',
-    icon: Activity,
-    description: 'Track user events'
-  },
-  {
     title: 'Analytics',
     href: '/analytics',
     icon: BarChart3,

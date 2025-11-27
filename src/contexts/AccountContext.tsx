@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ApiAccount } from '@/types';
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3007';
+const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3008';
 
 interface AccountContextType {
   accounts: ApiAccount[];

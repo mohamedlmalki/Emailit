@@ -1,190 +1,80 @@
 [
   {
     "name": "1",
-    "apiKey": "plunk-unused",
-    "secretKey": "sk_6a2c2a437e7b5cf6c2b2f3ba58678e3f3d28545774624c4c",
-    "fromEmail": "",
-    "defaultEventName": "contact_created",
-    "id": "f437eb61-ed21-4f26-9d69-dc78f0d07684",
+    "apiKey": "emailit-unused",
+    "secretKey": "em_RJiyCI84zNnlbZnNuX5b6gDDh7nSTGZS",
+    "fromEmail": "no-reply@postesrt.com",
+    "defaultEventName": "",
+    "id": "a19b2565-3d43-48d1-9ff3-e6d8ff89a562",
     "status": "connected",
-    "lastChecked": "2025-11-27T02:05:20.436Z",
-    "lastResponse": [
-      {
-        "id": "8eff5823-c352-4487-860a-4434a15cab8c",
-        "email": "mohamedlmalki@yahoo.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-26T09:10:45.899Z",
-        "updatedAt": "2025-11-26T09:10:45.899Z"
-      },
-      {
-        "id": "24d7d135-db94-4bca-8f77-c123051ae20d",
-        "email": "med217623@gmail.com",
-        "subscribed": true,
-        "data": "{}",
-        "createdAt": "2025-11-26T09:40:13.407Z",
-        "updatedAt": "2025-11-27T01:56:24.459Z"
-      },
-      {
-        "id": "e72f3e88-64bb-4850-ad74-e317749becab",
-        "email": "korhonenbivirtanen@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:18.431Z",
-        "updatedAt": "2025-11-27T01:43:18.431Z"
-      },
-      {
-        "id": "ed5e225a-a412-474d-8bf7-c4ac664a8932",
-        "email": "yassp123400@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:17.073Z",
-        "updatedAt": "2025-11-27T01:43:17.073Z"
-      },
-      {
-        "id": "701f7a09-ac70-46e3-8140-bb5528601038",
-        "email": "abdullahalha1258@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:17.651Z",
-        "updatedAt": "2025-11-27T01:43:17.651Z"
-      },
-      {
-        "id": "b9b2a963-0116-43f1-a127-ff075e212acd",
-        "email": "kariemckinley@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:19.005Z",
-        "updatedAt": "2025-11-27T01:43:19.005Z"
-      },
-      {
-        "id": "e04a0d4c-5cf4-4ec8-9e0b-0dfc49f92706",
-        "email": "colettesenger19254@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:19.626Z",
-        "updatedAt": "2025-11-27T01:43:19.626Z"
-      },
-      {
-        "id": "d5bfe369-75ca-4e60-bf25-86df4558a1b9",
-        "email": "spezioouditori@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:20.010Z",
-        "updatedAt": "2025-11-27T01:43:20.010Z"
-      },
-      {
-        "id": "f31c31d8-590d-476f-ad31-b6016d9ef7a5",
-        "email": "posterfr144@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:20.482Z",
-        "updatedAt": "2025-11-27T01:43:20.482Z"
-      },
-      {
-        "id": "80c7ae5b-9ab9-4532-9aba-f43198a1d015",
-        "email": "sergiogonza145@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:20.984Z",
-        "updatedAt": "2025-11-27T01:43:20.984Z"
-      },
-      {
-        "id": "57820e47-b97e-491d-bd4b-c7453cdac3e1",
-        "email": "erinpeters1980@hotmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:21.349Z",
-        "updatedAt": "2025-11-27T01:43:21.349Z"
-      },
-      {
-        "id": "567e0ef8-391e-4eae-b464-95ed7134953b",
-        "email": "kuimaretmoh@hotmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:21.773Z",
-        "updatedAt": "2025-11-27T01:43:21.773Z"
-      },
-      {
-        "id": "6ca702b8-3a2d-4074-8ac5-853670d1047e",
-        "email": "amal_alamoud_sa@hotmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:22.274Z",
-        "updatedAt": "2025-11-27T01:43:22.274Z"
-      },
-      {
-        "id": "05f84ec1-94ee-4026-a5ac-0249962a3590",
-        "email": "amandavianmartins@hotmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:22.701Z",
-        "updatedAt": "2025-11-27T01:43:22.701Z"
-      },
-      {
-        "id": "8283171c-c333-4655-950a-0e975f619fc2",
-        "email": "antoniolgoncalves148@hotmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:23.117Z",
-        "updatedAt": "2025-11-27T01:43:23.117Z"
-      },
-      {
-        "id": "6f21523c-f5a9-4104-9a8c-ed09fbc898ee",
-        "email": "marcositntre@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:23.611Z",
-        "updatedAt": "2025-11-27T01:43:23.611Z"
-      },
-      {
-        "id": "40535387-49ea-4633-b2c3-04d3bbc46c2d",
-        "email": "mariamnasira@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:24.020Z",
-        "updatedAt": "2025-11-27T01:43:24.020Z"
-      },
-      {
-        "id": "b9619268-11d6-4c16-8c03-2c08fce27875",
-        "email": "rcamayk@gmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:24.350Z",
-        "updatedAt": "2025-11-27T01:43:24.350Z"
-      },
-      {
-        "id": "cdf0e011-0678-4d6f-90ae-2c36f8eb30b3",
-        "email": "maykrcasp@gmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:24.825Z",
-        "updatedAt": "2025-11-27T01:43:24.825Z"
-      },
-      {
-        "id": "828b499f-d360-499f-bc37-5e73b5092b98",
-        "email": "sarlofrua@gmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:25.286Z",
-        "updatedAt": "2025-11-27T01:43:25.286Z"
-      },
-      {
-        "id": "e3329be2-7c25-4174-87b3-6ac1185a75fb",
-        "email": "yassintaziyasin@outlook.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:16.525Z",
-        "updatedAt": "2025-11-27T01:43:16.525Z"
-      },
-      {
-        "id": "dc986ce5-59f3-40e3-b65b-534ec25aad94",
-        "email": "zakiyassin1990@gmail.com",
-        "subscribed": true,
-        "data": null,
-        "createdAt": "2025-11-27T01:43:25.646Z",
-        "updatedAt": "2025-11-27T01:43:25.646Z"
-      }
-    ]
+    "lastChecked": "2025-11-27T11:47:24.056Z",
+    "lastResponse": {
+      "data": [
+        {
+          "id": 14069,
+          "name": "postesrt.com",
+          "dns_checked_at": "2025-11-27T08:20:30.000000Z",
+          "spf_status": "ok",
+          "spf_error": null,
+          "dkim_status": "ok",
+          "dkim_error": null,
+          "mx_status": null,
+          "mx_error": null,
+          "dmarc_status": "ok",
+          "dmarc_error": null,
+          "return_path_status": "ok",
+          "return_path_error": null,
+          "last_used_at": null,
+          "updated_at": "2025-11-27T08:20:30.000000Z",
+          "created_at": "2025-11-27T08:18:37.000000Z",
+          "dns_records": [
+            {
+              "required": true,
+              "type": "MX",
+              "name": "emailit.postesrt.com",
+              "value": "feedback-smtp.ffdc-1.emailit.com",
+              "priority": 10,
+              "ttl": "auto",
+              "status": "ok",
+              "error": null
+            },
+            {
+              "required": true,
+              "type": "TXT",
+              "name": "emailit.postesrt.com",
+              "value": "v=spf1 include:_spf.emailit.com ~all",
+              "priority": null,
+              "ttl": "auto",
+              "status": "ok",
+              "error": null
+            },
+            {
+              "required": true,
+              "type": "TXT",
+              "name": "emailit._domainkey.postesrt.com",
+              "value": "v=DKIM1; t=s; h=sha256; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAj7MyfvWacVrRqQ5KhARVNw8h+kHyF0ZU0pGneY2nSrGfRhOywgWrDHWUf+hP4W+1SMmB5gfIf+p9zd2NsCpDvXDO2406dO9PMtWazA53d3rwW+nxq4opQHSyFg9bVpNoJ9yonQ2oeHmf9VAe3eLr7H7A/4uBus1pWDDsJyol+QIDAQAB;",
+              "priority": null,
+              "ttl": "auto",
+              "status": "ok",
+              "error": null
+            },
+            {
+              "required": false,
+              "type": "TXT",
+              "name": "_dmarc.postesrt.com",
+              "value": "v=DMARC1; p=none;",
+              "priority": null,
+              "ttl": "auto",
+              "status": "ok",
+              "error": null
+            }
+          ],
+          "track_loads": 1,
+          "track_clicks": 1,
+          "verified_at": "2025-11-27T08:20:30.000000Z"
+        }
+      ],
+      "total_records": 1
+    }
   }
 ]

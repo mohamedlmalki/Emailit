@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Activity, Users, Info, CheckCircle2, XCircle, Loader2, 
+  Activity, Info, CheckCircle2, XCircle, Loader2, 
   Pause, Play, Square, Clock, Check, AlertTriangle,
   Download, Filter, Timer
 } from 'lucide-react';
@@ -73,7 +73,7 @@ export const TrackEvent: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `tracking-logs-${filter}-${new Date().toISOString().split('T')[0]}.txt`;
+    link.download = `audience-logs-${filter}-${new Date().toISOString().split('T')[0]}.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -104,7 +104,7 @@ export const TrackEvent: React.FC = () => {
           <CardContent className="p-6 text-center">
             <Activity className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
             <h2 className="text-lg font-semibold mb-2">No Account Selected</h2>
-            <p className="text-muted-foreground">Select a Plunk account to track events.</p>
+            <p className="text-muted-foreground">Select an Emailit account to add subscribers.</p>
           </CardContent>
         </Card>
       </div>
@@ -120,7 +120,7 @@ export const TrackEvent: React.FC = () => {
           <Activity className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Track Events</h1>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Add to Audience</h1>
           <p className="text-muted-foreground">Account: <span className="font-semibold text-primary">{currentAccount.name}</span></p>
         </div>
       </div>
@@ -130,15 +130,16 @@ export const TrackEvent: React.FC = () => {
         <Card className="lg:col-span-1 h-fit shadow-md border-t-4 border-t-primary">
           <CardHeader>
             <CardTitle>Configuration</CardTitle>
-            <CardDescription>Set event details and targets</CardDescription>
+            <CardDescription>Target Audience & Data</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             
             <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
-                    <Label>Event Name</Label>
+                    {/* UPDATED: Label changed from Event Name to Audience ID */}
+                    <Label>Audience ID</Label>
                     <Input 
-                        placeholder="user-signup" 
+                        placeholder="aud_xxxxxxxx" 
                         value={job.eventName}
                         onChange={(e) => updateJobData(currentAccount.id, { eventName: e.target.value })}
                         disabled={isJobActive}
@@ -162,9 +163,10 @@ export const TrackEvent: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <Label>Metadata (JSON)</Label>
+              {/* UPDATED: Label changed from Metadata to Custom Fields */}
+              <Label>Custom Fields (JSON)</Label>
               <Textarea 
-                placeholder='{ "source": "web", "plan": "pro" }'
+                placeholder='{ "role": "developer", "plan": "pro" }'
                 className="font-mono text-xs min-h-[80px]"
                 value={job.eventData}
                 onChange={(e) => updateJobData(currentAccount.id, { eventData: e.target.value })}
@@ -173,7 +175,7 @@ export const TrackEvent: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <Label>Target Emails</Label>
+              <Label>Subscriber Emails</Label>
               <Textarea 
                 placeholder={`user1@example.com\nuser2@example.com`}
                 className="min-h-[200px] font-mono text-xs leading-relaxed"
@@ -190,7 +192,7 @@ export const TrackEvent: React.FC = () => {
                   onClick={onStart}
                 >
                   <Activity className="w-4 h-4 mr-2" /> 
-                  {job.status === 'completed' || job.status === 'stopped' ? "Restart Tracking" : "Start Tracking"}
+                  {job.status === 'completed' || job.status === 'stopped' ? "Restart Process" : "Start Adding"}
                 </Button>
             ) : (
                 <div className="grid grid-cols-2 gap-3">
@@ -216,7 +218,7 @@ export const TrackEvent: React.FC = () => {
                     <div className="col-span-2 flex items-center justify-center text-xs text-muted-foreground mt-2">
                          {job.status === 'waiting' ? (
                             <span className="flex items-center text-blue-500 font-semibold animate-pulse">
-                                <Timer className="w-3 h-3 mr-2" /> Next event in {job.countdown}s...
+                                <Timer className="w-3 h-3 mr-2" /> Next request in {job.countdown}s...
                             </span>
                         ) : (
                              <span className="flex items-center animate-pulse">
@@ -231,13 +233,13 @@ export const TrackEvent: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Results Card - similar structure to bulk import but tailored columns */}
+        {/* Results Card */}
         <Card className="lg:col-span-2 shadow-md min-h-[500px] flex flex-col border-t-4 border-t-secondary">
            <CardHeader className="pb-3">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="space-y-1">
                     <CardTitle>Live Results</CardTitle>
-                    <CardDescription>Real-time tracking status</CardDescription>
+                    <CardDescription>Real-time status</CardDescription>
                 </div>
                 
                 <div className="flex flex-wrap items-center gap-2">

@@ -55,10 +55,10 @@ export const AccountSelector: React.FC<AccountSelectorProps> = ({ isCollapsed })
     }
     addAccount({ 
       name: newAccountName.trim(), 
-      apiKey: "plunk-unused", 
+      apiKey: "emailit-unused", 
       secretKey: newAccountSecretKey.trim(),
       fromEmail: newAccountFromEmail.trim(),
-      defaultEventName: newAccountEventName.trim() // Add defaultEventName
+      defaultEventName: newAccountEventName.trim() // Used as default Audience ID
     });
     setNewAccountName('');
     setNewAccountSecretKey('');
@@ -185,7 +185,7 @@ export const AccountSelector: React.FC<AccountSelectorProps> = ({ isCollapsed })
                     <span className="truncate max-w-[120px]">{account.name}</span>
                     {(account.fromEmail || account.defaultEventName) && (
                       <span className="text-[9px] text-muted-foreground truncate max-w-[120px]">
-                        {account.fromEmail ? `From: ${account.fromEmail}` : `Event: ${account.defaultEventName}`}
+                        {account.fromEmail ? `From: ${account.fromEmail}` : `Audience: ${account.defaultEventName}`}
                       </span>
                     )}
                 </div>
@@ -259,6 +259,7 @@ export const AccountSelector: React.FC<AccountSelectorProps> = ({ isCollapsed })
   );
 };
 
+// UPDATED: Dialog UI labels to "Default Audience ID"
 const AddAccountDialog = ({ open, onOpenChange, name, setName, secretKey, setSecretKey, fromEmail, setFromEmail, eventName, setEventName, onAdd }: any) => (
   <Dialog open={open} onOpenChange={onOpenChange}>
     <DialogContent>
@@ -266,12 +267,12 @@ const AddAccountDialog = ({ open, onOpenChange, name, setName, secretKey, setSec
       <div className="space-y-4 py-2">
         <div className="space-y-2">
             <Label>Account Name *</Label>
-            <Input placeholder="My Plunk Account" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input placeholder="My Emailit Account" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div className="space-y-2">
-            <Label>Plunk Secret Key *</Label>
-            <Input type="password" placeholder="sk_..." value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
-            <p className="text-[10px] text-muted-foreground">Found in Plunk Dashboard &gt; Project Settings &gt; API Keys</p>
+            <Label>Emailit Secret Key *</Label>
+            <Input type="password" placeholder="em_..." value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
+            <p className="text-[10px] text-muted-foreground">Found in Emailit Dashboard &gt; Credentials</p>
         </div>
         <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -279,8 +280,9 @@ const AddAccountDialog = ({ open, onOpenChange, name, setName, secretKey, setSec
                 <Input placeholder="me@example.com" value={fromEmail} onChange={(e) => setFromEmail(e.target.value)} />
             </div>
             <div className="space-y-2">
-                <Label>Default Event (Optional)</Label>
-                <Input placeholder="user-signup" value={eventName} onChange={(e) => setEventName(e.target.value)} />
+                {/* UPDATED LABEL */}
+                <Label>Default Audience ID (Optional)</Label>
+                <Input placeholder="aud_xxxxxxxx" value={eventName} onChange={(e) => setEventName(e.target.value)} />
             </div>
         </div>
         <div className="flex justify-end space-x-2 pt-2">
@@ -292,14 +294,15 @@ const AddAccountDialog = ({ open, onOpenChange, name, setName, secretKey, setSec
   </Dialog>
 );
 
+// UPDATED: Dialog UI labels to "Default Audience ID"
 const EditAccountDialog = ({ open, onOpenChange, secretKey, setSecretKey, fromEmail, setFromEmail, eventName, setEventName, onSave }: any) => (
   <Dialog open={open} onOpenChange={onOpenChange}>
     <DialogContent>
       <DialogHeader><DialogTitle>Edit Account</DialogTitle></DialogHeader>
       <div className="space-y-4 py-2">
         <div className="space-y-2">
-            <Label>Plunk Secret Key</Label>
-            <Input type="password" placeholder="sk_..." value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
+            <Label>Emailit Secret Key</Label>
+            <Input type="password" placeholder="em_..." value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
         </div>
         <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -307,8 +310,9 @@ const EditAccountDialog = ({ open, onOpenChange, secretKey, setSecretKey, fromEm
                 <Input placeholder="me@example.com" value={fromEmail} onChange={(e) => setFromEmail(e.target.value)} />
             </div>
             <div className="space-y-2">
-                <Label>Default Event</Label>
-                <Input placeholder="user-signup" value={eventName} onChange={(e) => setEventName(e.target.value)} />
+                {/* UPDATED LABEL */}
+                <Label>Default Audience ID</Label>
+                <Input placeholder="aud_xxxxxxxx" value={eventName} onChange={(e) => setEventName(e.target.value)} />
             </div>
         </div>
         <div className="flex justify-end space-x-2 pt-2">

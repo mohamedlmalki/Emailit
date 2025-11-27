@@ -148,7 +148,7 @@ export const BulkImport: React.FC = () => {
           <CardContent className="p-6 text-center">
             <Users className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
             <h2 className="text-lg font-semibold mb-2">No Account Selected</h2>
-            <p className="text-muted-foreground">Select a Plunk account to manage bulk jobs.</p>
+            <p className="text-muted-foreground">Select an account to manage bulk jobs.</p>
           </CardContent>
         </Card>
       </div>
@@ -178,30 +178,46 @@ export const BulkImport: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="fromName" className="flex items-center gap-2">
+                            <User className="w-3.5 h-3.5 text-muted-foreground" /> From Name
+                        </Label>
+                        <Input 
+                            id="fromName" 
+                            placeholder="My Brand" 
+                            value={job.fromName || ''}
+                            onChange={(e) => updateJobData(currentAccount.id, { fromName: e.target.value })}
+                            disabled={isJobActive}
+                            className="h-9 text-xs"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="delay" className="flex items-center gap-2">
+                            <Timer className="w-3.5 h-3.5 text-muted-foreground" /> Delay (sec)
+                        </Label>
+                        <Input 
+                            id="delay" 
+                            type="number"
+                            min="0"
+                            value={job.delay}
+                            onChange={(e) => updateJobData(currentAccount.id, { delay: parseInt(e.target.value) || 0 })}
+                            disabled={isJobActive}
+                            className="h-9 text-xs"
+                        />
+                    </div>
+                </div>
+                
                 <div className="space-y-2">
                     <Label htmlFor="from" className="flex items-center gap-2">
-                        <User className="w-3.5 h-3.5 text-muted-foreground" /> From
+                        <User className="w-3.5 h-3.5 text-muted-foreground" /> From Email
                     </Label>
                     <Input 
                         id="from" 
                         placeholder="opt@..." 
                         value={job.fromEmail || ''}
                         onChange={(e) => updateJobData(currentAccount.id, { fromEmail: e.target.value })}
-                        disabled={isJobActive}
-                        className="h-9 text-xs"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="delay" className="flex items-center gap-2">
-                        <Timer className="w-3.5 h-3.5 text-muted-foreground" /> Delay (sec)
-                    </Label>
-                    <Input 
-                        id="delay" 
-                        type="number"
-                        min="0"
-                        value={job.delay}
-                        onChange={(e) => updateJobData(currentAccount.id, { delay: parseInt(e.target.value) || 0 })}
                         disabled={isJobActive}
                         className="h-9 text-xs"
                     />
@@ -241,7 +257,6 @@ export const BulkImport: React.FC = () => {
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
-                            {/* Image Dialog Content Omitted for brevity - same as before */}
                              <DialogHeader>
                                 <DialogTitle>Insert Image</DialogTitle>
                             </DialogHeader>
@@ -253,6 +268,37 @@ export const BulkImport: React.FC = () => {
                                         value={imageUrl}
                                         onChange={(e) => setImageUrl(e.target.value)}
                                     />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label>Link URL (Optional)</Label>
+                                    <Input 
+                                        placeholder="https://google.com" 
+                                        value={imageLink}
+                                        onChange={(e) => setImageLink(e.target.value)}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid gap-2">
+                                        <Label>Size</Label>
+                                        <Input 
+                                            placeholder="100%, 300px..." 
+                                            value={imageSize}
+                                            onChange={(e) => setImageSize(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label>Alignment</Label>
+                                        <Select value={imageAlign} onValueChange={setImageAlign}>
+                                            <SelectTrigger>
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="left">Left</SelectItem>
+                                                <SelectItem value="center">Center</SelectItem>
+                                                <SelectItem value="right">Right</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
                                 <Button onClick={handleInsertImage} className="mt-2">Save & Insert</Button>
                             </div>
@@ -368,7 +414,7 @@ export const BulkImport: React.FC = () => {
                             <span className="font-mono font-medium text-red-600 dark:text-red-400">{job.stats.fail}</span>
                         </div>
                     </div>
-                    {/* Filter & Export code same as previous */}
+                    {/* Filter & Export */}
                      <div className="flex items-center gap-2">
                         <div className="flex items-center border rounded-md bg-background">
                             <div className="px-2 border-r text-muted-foreground"><Filter className="w-3.5 h-3.5" /></div>
