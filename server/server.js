@@ -76,7 +76,6 @@ app.post('/api/check-status', async (req, res) => {
     if (!secretKey) return res.status(400).json({ message: 'Missing Secret Key' });
 
     try {
-        // Using v1 as per your working environment
         const response = await axios.get('https://api.emailit.com/v1/sending-domains', {
             headers: { 
                 'Authorization': `Bearer ${secretKey}`,
@@ -90,7 +89,7 @@ app.post('/api/check-status', async (req, res) => {
     }
 });
 
-// --- Send Email (v1) ---
+// --- Send Email (v1 - FIXED HTML/TEXT ISSUE) ---
 app.post('/api/send-email', async (req, res) => {
     const { accountId, to, subject, content, from } = req.body;
     if (!accountId || !to || !subject || !content) return res.status(400).json({ error: "Missing parameters" });
@@ -100,12 +99,25 @@ app.post('/api/send-email', async (req, res) => {
         const account = accounts.find(a => a.id === accountId);
         if (!account) return res.status(404).json({ error: "Account not found" });
 
+        // 1. Prepare HTML: Ensure it is wrapped in <html><body> tags
+        let htmlContent = content;
+        if (!htmlContent.trim().toLowerCase().startsWith('<html') && !htmlContent.includes('<body')) {
+            htmlContent = `<!DOCTYPE html><html><body>${content}</body></html>`;
+        }
+
+        // 2. Prepare Text: Ensure it is not empty (Emailit requires non-empty string)
+        let textContent = String(content).replace(/<[^>]*>?/gm, " ").trim();
+        if (!textContent || textContent.length === 0) {
+            textContent = "Please view this email in an HTML compatible email client.";
+        }
+
         const payload = {
             to: to,
             subject: subject,
-            html: content,
-            text: content.replace(/<[^>]*>?/gm, '')
+            html: htmlContent, // Use wrapped HTML
+            text: textContent  // Use valid text
         };
+        
         if (from) payload.from = from;
 
         const response = await axios.post('https://api.emailit.com/v1/emails', payload, {
@@ -162,13 +174,11 @@ app.get('/api/email/log', async (req, res) => {
             page: page
         };
 
-        // v1 specific filters
         if (status === 'delivered') params['filter[type]'] = 'email.delivery.sent';
         if (status === 'failed') params['filter[type]'] = 'email.delivery.hardfail'; 
         if (status === 'opened') params['filter[type]'] = 'email.loaded';
         if (status === 'clicked') params['filter[type]'] = 'email.link.clicked';
 
-        // Using v1
         const response = await axios.get('https://api.emailit.com/v1/events', {
             headers: { 
                 'Authorization': `Bearer ${account.secretKey}`,
